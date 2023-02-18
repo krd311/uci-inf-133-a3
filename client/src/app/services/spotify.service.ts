@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { ArtistData } from '../data/artist-data';
 import { AlbumData } from '../data/album-data';
@@ -16,13 +17,11 @@ export class SpotifyService {
   constructor(private http:HttpClient) { }
 
   private sendRequestToExpress(endpoint:string):Promise<any> {
-    //TODO: use the injected http Service to make a get request to the Express endpoint and return the response.
-    //the http service works similarly to fetch(). It may be useful to call .toPromise() on any responses.
-    //update the return to instead return a Promise with the data from the Express server
-    //Note: toPromise() is a deprecated function that will be removed in the future.
-    //It's possible to do the assignment using lastValueFrom, but we recommend using toPromise() for now as we haven't
-    //yet talked about Observables. https://indepth.dev/posts/1287/rxjs-heads-up-topromise-is-being-deprecated
-    return Promise.resolve();
+    return lastValueFrom(this.http.get(this.expressBaseUrl + endpoint)).then((response) => {
+      return response;
+    }, (err) => {
+      return err;
+    });
   }
 
   aboutMe():Promise<ProfileData> {
