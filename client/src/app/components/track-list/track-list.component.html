@@ -1,30 +1,31 @@
 <table class="table table-sm table-light table-striped" *ngIf="tracks">
 	<thead>
-		<tr>
-			<th scope="col">#</th>
-			<th scope="col">Track</th>
-			<th scope="col">Duration</th>
-			<!--TODO: Use *ngIf to hide if hideArtist is true-->
-			<th scope="col">Primary Artist</th>
-			<!--TODO: Use *ngIf to hide if hideAlbum is true-->
-			<th scope="col">Album</th>
-		</tr>
+	  <tr>
+		<th scope="col">#</th>
+		<th scope="col">Track</th>
+		<th scope="col">Duration</th>
+		<!--TODO: Use *ngIf to hide if hideArtist is true-->
+		<th scope="col" *ngIf="!hideArtist">Primary Artist</th>
+		<!--TODO: Use *ngIf to hide if hideAlbum is true-->
+		<th scope="col" *ngIf="!hideAlbum">Album</th>
+	  </tr>
 	</thead>
 	<tbody>
-		<!--TODO: Use *ngFor to loop over tracks-->
-		<tr>
-			<!--TODO: Populate with row index (start with 1!)-->
-			<td>???</td>
-			<td>
-				<!--TODO: link to the endpoint for that track, display the track's name-->
-				<a>???</a>
-			</td>
-			<!--TODO: display the track's duration-->
-			<td>???</td>
-			<!--TODO: Use *ngIf to hide if hideArtist is true; link to the first artist's endpoint and display the first artist's name-->
-			<td><a></a></td>
-			<!--TODO: Use *ngIf to hide if hideAlbum is true; link to the album's endpoint and display the album's name-->
-			<td><a></a></td>
-		</tr>
+	  <!--TODO: Use *ngFor to loop over tracks-->
+	  <tr *ngFor="let track of tracks; let i = index">
+		<!--TODO: Populate with row index (start with 1!)-->
+		<td>{{ i + 1 }}</td>
+		<td>
+		  <!--TODO: link to the endpoint for that track, display the track's name-->
+		  <a [href]="track.uri">{{ track.name }}</a>
+		</td>
+		<!--TODO: display the track's duration-->
+		<td>{{ track.duration_ms }}</td>
+		<!--TODO: Use *ngIf to hide if hideArtist is true; link to the first artist's endpoint and display the first artist's name-->
+		<td *ngIf="!hideArtist"><a [href]="track.artists[0].uri">{{ track.artists[0].name }}</a></td>
+		<!--TODO: Use *ngIf to hide if hideAlbum is true; link to the album's endpoint and display the album's name-->
+		<td *ngIf="!hideAlbum"><a [href]="track.album.uri">{{ track.album.name }}</a></td>
+	  </tr>
 	</tbody>
-</table>
+  </table>
+  

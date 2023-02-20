@@ -17,26 +17,40 @@ export class SpotifyService {
   constructor(private http:HttpClient) { }
 
   private sendRequestToExpress(endpoint:string):Promise<any> {
-    return lastValueFrom(this.http.get(this.expressBaseUrl + endpoint)).then((response) => {
-      return response;
-    }, (err) => {
-      return err;
-    });
+    const url = this.expressBaseUrl + endpoint;
+    return this.http.get(url).toPromise();
   }
 
   aboutMe():Promise<ProfileData> {
-    //This line is sending a request to express, which returns a promise with some data. We're then parsing the data 
-    return this.sendRequestToExpress('/me').then((data) => {
-      return new ProfileData(data);
-    });
+    return this.sendRequestToExpress('/me')
+      .then((data) => {
+        let n = new ProfileData(data)
+        console.log(n)
+        return n;
+      })
+      .catch((error) => {
+        console.error('An error occurred:', error);
+        throw error;
+      });
   }
 
   searchFor(category:string, resource:string):Promise<ResourceData[]> {
-    //TODO: identify the search endpoint in the express webserver (routes/index.js) and send the request to express.
-    //Make sure you're encoding the resource with encodeURIComponent().
-    //Depending on the category (artist, track, album), return an array of that type of data.
-    //JavaScript's "map" function might be useful for this, but there are other ways of building the array.
-    return null as any;
+    return this.sendRequestToExpress('/search' + "/" +category+ "/" + encodeURIComponent(resource))
+    .then((data) => {
+      if (category === 'artist') {
+        return data.artists.items.map((artist: any) => new ArtistData(artist));
+      } else if (category === 'album') {
+        return data.albums.items.map((album: any) => new AlbumData(album));
+      } else if (category === 'track') {
+        return data.tracks.items.map((track: any) => new TrackData(track));
+      } else {
+        throw new Error(`Invalid category: ${category}`);
+      }
+    })
+    .catch((error) => {
+      console.error('An error occurred:', error);
+      throw error;
+    });
   }
 
   getArtist(artistId:string):Promise<ArtistData> {
