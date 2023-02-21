@@ -1,21 +1,22 @@
 <div *ngIf="album" class="row">
 	<div class="col-6">
 		<!--TODO: populate with album name-->
-		<h1>???</h1>
+		<h1>{{this.album.name}}</h1>
 		<!--TODO: set src to album image URL-->
-		<img id="albumImg">
-		<!--TODO: loop over album artists-->
+		<img id="albumImg" src={{this.album.imageURL}}>
+		<!--TODO: loop over album artists
+		<a [href]="'/' + (resource.url.indexOf('artist') == -1? resource.url.substring(resource.url.indexOf('album')) : resource.url.substring(resource.url.indexOf('artist')))">-->
 		<p>
 			<!--TODO: link to artist page, display artist name-->
-			Artist: <a>???</a>
+			Artist: <a [href]="'/' + (this.album.artists[0].url.substring(this.album.artists[0].url.indexOf('artist')))">{{this.album.artists[0].name}}</a>
 		</p>
 		<p>
 			<!--TODO: link to album page on spotify, display album name-->
-			<a class="btn btn-light" role="button" target="_blank" >Open ??? on Spotify</a>
+			<a href={{this.album.url}} class="btn btn-light" role="button" target="_blank" >Open {{this.album.name}} on Spotify</a>
 		</p>
 	</div>
 	<div class="col-6">
 		<h3>Album Tracks</h3>
-		<!--TODO: display the track list for the album. Hide the artist and album columns because they are redundant on this page.-->
+		<app-track-list [tracks]="this.tracks" [hideArtist] = true [hideAlbum] = true></app-track-list>
 	</div>
 </div>

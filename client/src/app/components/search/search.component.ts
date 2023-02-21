@@ -23,7 +23,7 @@ export class SearchComponent implements OnInit {
   }
 
   search() {
-    this.resources = null
+  this.resources = null
   this.spotifyService.searchFor(this.searchCategory, this.searchString).then((result) => {
     this.resources = result;
     console.log(result)
