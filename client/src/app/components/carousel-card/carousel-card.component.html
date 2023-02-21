@@ -1,5 +1,5 @@
 <!--TODO: bind href to the appropriate local URL for the album/artist/song.-->
-<a [href]="resource.url">
+<a [href]="'/' + (resource.url.indexOf('artist') == -1? resource.url.substring(resource.url.indexOf('album')) : resource.url.substring(resource.url.indexOf('artist')))">
 <!--TODO bind src with the album/artist/song image URRL-->
 <img class="d-block w-100" [src]="resource.imageURL">
 <div class="carousel-caption d-none d-md-block">

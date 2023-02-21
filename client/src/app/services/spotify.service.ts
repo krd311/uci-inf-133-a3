@@ -25,7 +25,6 @@ export class SpotifyService {
     return this.sendRequestToExpress('/me')
       .then((data) => {
         let n = new ProfileData(data)
-        console.log(n)
         return n;
       })
       .catch((error) => {
@@ -76,7 +75,15 @@ export class SpotifyService {
 
   getAlbum(albumId:string):Promise<AlbumData> {
     //TODO: use the album endpoint to make a request to express.
-    return null as any;
+    return this.sendRequestToExpress('/album/' + albumId)
+      .then((data) => {
+        let n = new AlbumData(data)
+        return n;
+      })
+      .catch((error) => {
+        console.error('An error occurred:', error);
+        throw error;
+      });
   }
 
   getTracksForAlbum(albumId:string):Promise<TrackData[]> {
