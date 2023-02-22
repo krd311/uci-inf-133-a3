@@ -55,12 +55,10 @@ export class SpotifyService {
   getArtist(artistId:string):Promise<ArtistData> {
     //TODO: use the artist endpoint to make a request to express.
     //Again, you may need to encode the artistId.
-    console.log(artistId);
+    // console.log(artistId);
     return this.sendRequestToExpress('/artist/' + encodeURIComponent(artistId))
       .then((data) => {
-        
         let n = new ArtistData(data)
-        
         return n;
       })
       .catch((error) => {
@@ -71,16 +69,39 @@ export class SpotifyService {
 
   getRelatedArtists(artistId:string):Promise<ArtistData[]> {
     //TODO: use the related artist endpoint to make a request to express and return an array of artist data.
+    return this.sendRequestToExpress('/artist/' + artistId)
+      .then((data) => {
+        return data.items
+      })
+      .catch((error) => {
+        console.error('An error occurred:', error);
+        throw error;
+      });
    return null as any;
   }
 
   getTopTracksForArtist(artistId:string):Promise<TrackData[]> {
     //TODO: use the top tracks endpoint to make a request to express.
-    return null as any;
+    return this.sendRequestToExpress('/top-tracks/' + artistId)
+      .then(data =>
+        data.tracks.map(item => new TrackData(item)))
+      .catch(error => {
+        console.error('An error occurred:', error);
+        throw error;
+      });
   }
 
   getAlbumsForArtist(artistId:string):Promise<AlbumData[]> {
     //TODO: use the albums for an artist endpoint to make a request to express.
+    // return this.sendRequestToExpress('/artist/' + artistId)
+    // .then((data) => {
+    //   let n = new Al();
+    //   return data.items
+    // })
+    // .catch((error) => {
+    //   console.error('An error occurred:', error);
+    //   throw error;
+    // });
     return null as any;
   }
 

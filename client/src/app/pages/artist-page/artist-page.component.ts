@@ -30,19 +30,19 @@ export class ArtistPageComponent implements OnInit {
       console.error(error);
     });
 
-    // this.spotifyService.getRelatedArtists(this.artistId).then((result) => {
-    //   console.log(result)
-    //   this.relatedArtists = result
-    // }).catch((error: any) => {
-    //   console.error(error);
-    // });
+    this.spotifyService.getRelatedArtists(this.artistId).then((result) => {
+      // console.log(result)
+      this.relatedArtists = result
+    }).catch((error: any) => {
+      console.error(error);
+    });
     
-    // this.spotifyService.getTopTracksForArtist(this.artistId).then((result) => {
-    //   console.log(result)
-    //   this.topTracks = result
-    // }).catch((error: any) => {
-    //   console.error(error);
-    // });
+    this.spotifyService.getTopTracksForArtist(this.artistId).then((result) => {
+      console.log("asdfasfasdfas")
+      this.topTracks = result
+    }).catch((error: any) => {
+      console.error(error);
+    });
 
     // this.spotifyService.getAlbumsForArtist(this.artistId).then((result) => {
     //   console.log(result)

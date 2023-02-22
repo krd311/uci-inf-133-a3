@@ -6,29 +6,47 @@
 		<img id="artistImg" src="{{this.artist.imageURL}}">
 		<p>
 			<!--TODO: link to artist page on spotify, display artist name-->
-			<a class="btn btn-light" role="button" target="_blank">Open ??? on Spotify</a>
+			<a href={{this.artist.url}} class="btn btn-light" role="button" target="_blank">Open {{this.artist.name}} on Spotify</a>
 		</p>
 	</div>
 	<div class="col-2">
 		<h3>Genres</h3>
 		<ul>
 			<!--TODO: loop over artist's genres and display them-->
-			<li>???</li>
+			<li *ngFor="let genre of artist.genres">{{genre}}</li>
 		</ul>
 		<p>
 		</p>
 	</div>
 	<div class="col-4">
 		<!--TODO: display artist name-->
-		<h3>???'s Top Tracks</h3>
+		<h3>{{this.artist.name}}'s Top Tracks</h3>
 		<!--TODO: display the artist's top tracks-->
+		<ul>
+			<li *ngFor="let track of artist.topTracks">
+				<!-- TODO: link to the endpoint for that track, display the track's name -->
+				<a [href]="'http://localhost:4200/track/' + track.id">{{ track.name }}</a>
+				<!-- TODO: display the track's duration -->
+				<span>{{ track.duration_ms }}</span>
+				<!-- TODO: Use *ngIf to hide if hideAlbum is true; link to the album's endpoint and display the album's name -->
+				<span *ngIf="!hideAlbum"><a [href]="'http://localhost:4200/album/' + track.album.id">{{ track.album.name }}</a></span>
+			</li>
+		</ul>
 	</div>
 </div>
 
 <div *ngIf="artist" class="row">
 	<div class="col-6">
 		<!--TODO: display artist name-->
-		<h3>???'s Albums</h3>
+		<h3>{{this.artist.name}}'s Albums</h3>
+		<a [href]="'/' + (resource.url.indexOf('artist') == -1? resource.url.substring(resource.url.indexOf('album')) : resource.url.substring(resource.url.indexOf('artist')))">
+			<!--TODO bind src with the album/artist/song image URRL-->
+			<img class="d-block w-100" [src]="resource.imageURL">
+			<div class="carousel-caption d-none d-md-block">
+				<!--TODO: populate h5 with the album/artist/song name-->
+				<h5>{{ resource.name }}</h5>
+			</div>
+		</a>
 		<!--TODO: Display a carousel component for the artist's albums. Bind carousel's resources and give it a static carouselId.-->
 	</div>
 	<div class="col-6">
