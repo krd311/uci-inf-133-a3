@@ -1,9 +1,9 @@
 <div *ngIf="artist" class="row">
 	<div class="col-6">
 		<!--TODO: populate with artist name-->
-		<h1></h1>
+		<h1>{{this.artist.name}}</h1>
 		<!--TODO: populate with artist image URL-->
-		<img id="artistImg" src="../../../assets/unknown.jpg">
+		<img id="artistImg" src="{{this.artist.imageURL}}">
 		<p>
 			<!--TODO: link to artist page on spotify, display artist name-->
 			<a class="btn btn-light" role="button" target="_blank">Open ??? on Spotify</a>
