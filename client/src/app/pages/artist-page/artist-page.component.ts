@@ -23,6 +23,7 @@ export class ArtistPageComponent implements OnInit {
   	this.artistId = this.route.snapshot.paramMap.get('id');
     //TODO: Inject the spotifyService and use it to get the artist data, related artists, top tracks for the artist, and the artist's albums
     // this.artistId = this.route.snapshot.paramMap.get('id');
+
     this.spotifyService.getArtist(this.artistId).then((result) => {
       // console.log(result)
       this.artist = result
@@ -31,25 +32,25 @@ export class ArtistPageComponent implements OnInit {
     });
 
     this.spotifyService.getRelatedArtists(this.artistId).then((result) => {
-      // console.log(result)
+
       this.relatedArtists = result
     }).catch((error: any) => {
       console.error(error);
     });
-    
+
     this.spotifyService.getTopTracksForArtist(this.artistId).then((result) => {
-      console.log("asdfasfasdfas")
       this.topTracks = result
     }).catch((error: any) => {
       console.error(error);
     });
 
-    // this.spotifyService.getAlbumsForArtist(this.artistId).then((result) => {
-    //   console.log(result)
-    //   this.albums = result
-    // }).catch((error: any) => {
-    //   console.error(error);
-    // });
+
+    this.spotifyService.getAlbumsForArtist(this.artistId).then((result) => {
+      console.log(result)
+      this.albums = result
+    }).catch((error: any) => {
+      console.error(error);
+    });
   }
 
 }
