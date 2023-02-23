@@ -20,7 +20,7 @@
 		  <a [href]="'http://localhost:4200/track/' + track.id">{{ track.name }}</a>
 		</td>
 		<!--TODO: display the track's duration-->
-		<td>{{ track.duration_ms }}</td>
+		<td>{{ track.durationStr }}</td>
 		<!--TODO: Use *ngIf to hide if hideArtist is true; link to the first artist's endpoint and display the first artist's name-->
 		<td *ngIf="!hideArtist"><a [href]="'http://localhost:4200/artist/' + track.artists[0].id">{{ track.artists[0].name }}</a></td>
 		<!--TODO: Use *ngIf to hide if hideAlbum is true; link to the album's endpoint and display the album's name-->

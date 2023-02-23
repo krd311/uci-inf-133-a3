@@ -56,13 +56,11 @@ function makeAPIRequest(url, res) {
 						if(response.ok) {
 							return response.json();
 						} else {
-							console.log(response);
 							res.status(response.status).end();
 						}
 					});
 				});
 			} else {
-				console.log(response);
 				res.status(response.status).end();
 			}
 			return null;
@@ -80,7 +78,6 @@ router.get('*', function(req, res, next) {
 		//Promise.all() could be used to conduct these two file reads asynchronously, which is more efficient.
 		fs.readFile('client_secret.json', (err, data) => {
 			if(err){
-				console.log(err + "\n\nHave you created your tokens and client_secret files yet?")
 			}else{
 				data = JSON.parse(data);
 				my_client_id = data.client_id;

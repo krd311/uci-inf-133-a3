@@ -27,8 +27,6 @@ export class AboutComponent implements OnInit {
       let image = document.getElementById("profileImage") as HTMLImageElement
       image.src =  result.imageURL;
 
-      console.log(result.imageURL)
-
       let button = document.getElementById("buttonToUser") as HTMLAnchorElement
       button.href =  result.spotifyProfile;
     })

@@ -22,36 +22,7 @@
 		<!--TODO: display artist name-->
 		<h3>{{this.artist.name}}'s Top Tracks</h3>
 		<!--TODO: display the artist's top tracks-->
-		<table class="table table-sm table-light table-striped" *ngIf="topTracks">
-			<thead>
-			  <tr>
-				<th scope="col">#</th>
-				<th scope="col">Track</th>
-				<th scope="col">Duration</th>
-				<!--TODO: Use *ngIf to hide if hideArtist is true-->
-				<th scope="col" *ngIf="!hideArtist">Primary Artist</th>
-				<!--TODO: Use *ngIf to hide if hideAlbum is true-->
-				<th scope="col" *ngIf="!hideAlbum">Album</th>
-			  </tr>
-			</thead>
-			<tbody>
-			  <!--TODO: Use *ngFor to loop over tracks-->
-			  <tr *ngFor="let track of topTracks; let i = index;">
-				<!--TODO: Populate with row index (start with 1!)-->
-				<td>{{ i + 1 }}</td>
-				<td>
-				  <!--TODO: link to the endpoint for that track, display the track's name-->
-				  <a [href]="'http://localhost:4200/track/' + track.id">{{ track.name }}</a>
-				</td>
-				<!--TODO: display the track's duration-->
-				<td>{{ track.duration_ms }}</td>
-				<!--TODO: Use *ngIf to hide if hideArtist is true; link to the first artist's endpoint and display the first artist's name-->
-				<td *ngIf="!hideArtist"><a [href]="'http://localhost:4200/artist/' + track.artists[0].id">{{ track.artists[0].name }}</a></td>
-				<!--TODO: Use *ngIf to hide if hideAlbum is true; link to the album's endpoint and display the album's name-->
-				<td *ngIf="!hideAlbum"><a [href]="'http://localhost:4200/album/' + track.album.id">{{ track.album.name }}</a></td>
-			  </tr>
-			</tbody>
-		  </table>
+		<app-track-list [tracks]="this.topTracks" [hideArtist] = false [hideAlbum] = false></app-track-list>
 	</div>
 </div>
 
@@ -59,38 +30,13 @@
 	<div class="col-6">
 		<!--TODO: display artist name-->
 		<h3>{{this.artist.name}}'s Albums</h3>
-		<div *ngIf="albums" id="albums-carousel" class="carousel slide carousel-fade" data-ride="carousel" data-pause="false" data-interval="3000">
-			<div class="carousel-inner">
-			  <app-carousel-card *ngFor="let album of albums; let i = index;" [resource]="album" [ngClass]="{'carousel-item': true, 'active': i === 0}"></app-carousel-card>
-			</div>
-			<a class="carousel-control-prev" href="#albums-carousel" role="button" data-slide="prev">
-			  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			  <span class="sr-only">Previous</span>
-			</a>
-			<a class="carousel-control-next" href="#albums-carousel" role="button" data-slide="next">
-			  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-			  <span class="sr-only">Next</span>
-			</a>
-		</div>
+		<app-carousel [resources]="albums" carouselId="albumsFromTheArtist"></app-carousel>
 		<!--TODO: Display a carousel component for the artist's albums. Bind carousel's resources and give it a static carouselId.-->
 
 	</div>
 	<div class="col-6">
 		<h3>Similar Artists</h3>
-		<div *ngIf="relatedArtists" id="related-artists-carousel" class="carousel slide carousel-fade" data-ride="carousel" data-pause="false" data-interval="3000">
-			<div class="carousel-inner">
-			  <app-carousel-card *ngFor="let artist of relatedArtists; let i = index;" [resource]="artist" [ngClass]="{'carousel-item': true, 'active': i === 0}"></app-carousel-card>
-			</div>
-			<a class="carousel-control-prev" href="#related-artists-carousel" role="button" data-slide="prev">
-			  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-			  <span class="sr-only">Previous</span>
-			</a>
-			<a class="carousel-control-next" href="#related-artists-carousel" role="button" data-slide="next">
-			  <span class="carousel-control-next-icon" aria-hidden="true"></span>
-			  <span class="sr-only">Next</span>
-			</a>
-		</div>
-		<!--TODO: Display a carousel component for similar artists. Bind carousel's resources and give it a static carouselId.-->
+		<app-carousel [resources]="relatedArtists" carouselId="relatedArtistsCarousel"></app-carousel>
 	</div>
 
 </div>

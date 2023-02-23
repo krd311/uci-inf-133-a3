@@ -15,7 +15,7 @@
 		</div>
 		<p>
 			<!--TODO: populate with track duration-->
-			Duration: {{track.duration_ms}}
+			Duration: {{this.track.durationStr}}
 		</p>
 		<p>
 			<!--TODO: link to track page on spotify, display track name-->
@@ -25,5 +25,11 @@
 	</div>
 	<div *ngIf="audioFeatures" class="col-6">
 		<!--TODO: loop over types of features and create a thermometer component for each-->
+		
+		<div *ngFor="let feature of audioFeatures">
+			<div *ngIf="feature.name === 'danceability' || feature.name === 'energy' || feature.name === 'speechiness' || feature.name === 'acousticness'
+    || feature.name === 'instrumentalness' || feature.name === 'liveness' || feature.name === 'valence'">
+			<app-thermometer [feature]="feature"></app-thermometer>
+		</div>
 	</div>
 </div>

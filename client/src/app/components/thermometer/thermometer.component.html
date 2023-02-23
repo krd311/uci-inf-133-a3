@@ -1,6 +1,7 @@
 <div class="progress">
 	<!--TODO: set style.background-color based on the audio feature's color and style.width via the audio feature's percent. Display feature name and percent.-->
-  <div class="progress-bar" role="progressbar">
-  	<span class="progress-bar-text">???: ???</span>
+  <div class="progress-bar" role="progressbar" >
+  	<span class="progress-bar-text" [style.background-color]="feature.color" [style.width]="feature.percent * 100 + '%'">{{feature.name}}: {{feature.percent * 100 - (feature.percent * 100 % 1) + (feature.percent * 100 % 1 >= 0.5 ? 1 : 0) + '%'}}</span>
   </div>
 </div>
+

@@ -11,6 +11,7 @@ export class TrackData extends ResourceData {
 		super(objectModel);
 		this.category = "track";
 
+
 		this.artists = objectModel['artists'].map((artist) => {
 			return new ArtistData(artist);
 		});

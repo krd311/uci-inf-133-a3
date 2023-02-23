@@ -25,7 +25,6 @@ export class ArtistPageComponent implements OnInit {
     // this.artistId = this.route.snapshot.paramMap.get('id');
 
     this.spotifyService.getArtist(this.artistId).then((result) => {
-      // console.log(result)
       this.artist = result
     }).catch((error: any) => {
       console.error(error);
@@ -46,7 +45,6 @@ export class ArtistPageComponent implements OnInit {
 
 
     this.spotifyService.getAlbumsForArtist(this.artistId).then((result) => {
-      console.log(result)
       this.albums = result
     }).catch((error: any) => {
       console.error(error);

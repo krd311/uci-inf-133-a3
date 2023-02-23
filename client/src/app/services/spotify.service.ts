@@ -70,7 +70,6 @@ export class SpotifyService {
     // TODO: use the related artist endpoint to make a request to express and return an array of artist data.
     return this.sendRequestToExpress('/artist-related-artists/' + artistId)
       .then((data) => {
-        console.log(data);
         return data.artists.map((related: any) => new ArtistData(related));
       })
       .catch((error) => {
@@ -120,7 +119,7 @@ export class SpotifyService {
     //TODO: use the tracks for album endpoint to make a request to express.
     return this.sendRequestToExpress('/album-tracks/' + albumId)
       .then((data) => {
-        return data.items
+        return data.items.map(item => new TrackData(item));
       })
       .catch((error) => {
         console.error('An error occurred:', error);
@@ -143,6 +142,19 @@ export class SpotifyService {
 
   getAudioFeaturesForTrack(trackId:string):Promise<TrackFeature[]> {
     //TODO: use the audio features for track endpoint to make a request to express.
-    return null as any;
+    return this.sendRequestToExpress('/track-audio-features/' + trackId)
+    .then((data) => {
+    
+
+      // return Object.values(data).map(item => new TrackFeature(data.item.feature, data.item.percent));
+      return Object.entries(data).map(([feature, percent]) => new TrackFeature(feature, Number(percent)));
+    })
+    .catch((error) => {
+      console.error('An error occurred:', error);
+      throw error;
+    });
+
+
+    
   }
 }
